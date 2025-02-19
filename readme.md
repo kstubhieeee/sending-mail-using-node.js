@@ -50,3 +50,7 @@
      ```
      http://localhost:8080
      ```
+   - Go to the route:
+     ```
+     http://localhost:8080/send-mail
+     ```

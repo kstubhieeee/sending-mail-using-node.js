@@ -1,23 +1,29 @@
-require("dotenv").config(); // Load environment variables
+require("dotenv").config();
 const http = require("http");
 const nodemailer = require("nodemailer");
 
 const server = http.createServer((request, response) => {
+  if (request.url !== "/send-mail") {
+    response.writeHead(200, { "Content-Type": "text/plain" });
+    response.end("Server is running. Use /send-mail to send an email.");
+    return;
+  }
+
   const auth = nodemailer.createTransport({
     service: "gmail",
     secure: true,
     port: 465,
     auth: {
-      user: process.env.EMAIL_USER, // Use environment variable
-      pass: process.env.EMAIL_PASS, // Use environment variable
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   const receiver = {
     from: process.env.EMAIL_USER,
-    to: "kstubhie@gmail.com",
-    subject: "Node Js Mail Testing!",
-    text: "Hello, this is a text mail!",
+    to: "kaustubh@rpainfotech.com",
+    subject: "First mail",
+    text: "How's your time here",
   };
 
   auth.sendMail(receiver, (error, emailResponse) => {
